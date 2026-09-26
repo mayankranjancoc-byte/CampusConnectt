@@ -21,7 +21,7 @@ export default function RegistrationsPage() {
   // Force re-render on cancel
   const [nonce, setNonce] = useState(0)
 
-  if (currentUser.role !== 'student') {
+  if (!currentUser || currentUser.role !== 'student') {
     return (
       <section className="w-full max-w-[1320px] mx-auto px-margin-mobile lg:px-margin py-space-xl">
         <EmptyState

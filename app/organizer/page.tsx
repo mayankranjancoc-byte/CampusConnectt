@@ -52,7 +52,7 @@ export default function OrganizerPage() {
     setDateTime(localISOTime)
   }, [])
 
-  if (currentUser.role !== 'organizer') {
+  if (!currentUser || currentUser.role !== 'organizer') {
     return (
       <section className="w-full max-w-[1320px] mx-auto px-margin-mobile lg:px-margin py-space-xl">
         <EmptyState
@@ -189,9 +189,9 @@ export default function OrganizerPage() {
           <div className="flex items-center gap-space-sm">
             <button
               onClick={handleCreateNew}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-canvas-cream font-label-md text-label-md hover:bg-muted-aubergine transition-all active:translate-y-0.5"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-sky-400 text-canvas-cream font-label-md text-label-md hover:bg-sky-500 transition-all active:translate-y-0.5"
             >
-              <span className="material-symbols-outlined text-[18px] text-apricot">add</span>
+              <span className="material-symbols-outlined text-[18px] text-white">add</span>
               <span>New Event</span>
             </button>
           </div>
@@ -445,9 +445,9 @@ export default function OrganizerPage() {
                 <div className="pt-space-sm border-t border-divider-hairline flex flex-wrap items-center gap-space-sm">
                   <button 
                     type="submit" 
-                    className="flex-1 py-2.5 px-4 rounded-full bg-primary text-canvas-cream font-label-md text-label-md font-semibold hover:bg-muted-aubergine transition-all active:translate-y-0.5 flex items-center justify-center gap-1.5"
+                    className="flex-1 py-2.5 px-4 rounded-full bg-sky-400 text-canvas-cream font-label-md text-label-md font-semibold hover:bg-sky-500 transition-all active:translate-y-0.5 flex items-center justify-center gap-1.5"
                   >
-                    <span className="material-symbols-outlined text-[16px] text-apricot">send</span>
+                    <span className="material-symbols-outlined text-[16px] text-white">send</span>
                     <span>{editingEvent ? 'Save Changes' : 'Publish Event'}</span>
                   </button>
                   {editingEvent && (
