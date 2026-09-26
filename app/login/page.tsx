@@ -5,34 +5,7 @@ import { useAuth } from '@/components/AuthProvider'
 
 export default function LoginPage() {
   const { login } = useAuth()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
-
-    if (!email || !password) {
-      setError('Please enter both email and password.')
-      return
-    }
-
-    const err = login(email, password)
-    if (err) {
-      setError(err)
-    }
-  }
-
-  const fillDemo = (role: 'student' | 'organizer') => {
-    if (role === 'student') {
-      setEmail('student@campus.com')
-      setPassword('student123')
-    } else {
-      setEmail('organizer@campus.com')
-      setPassword('admin123')
-    }
-  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-surface px-margin-mobile">
@@ -51,63 +24,36 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <form onSubmit={handleLogin} className="flex flex-col gap-space-md">
-          {error && (
-            <div className="p-3 bg-error-container text-on-error-container font-body-sm text-body-sm rounded-lg border border-error/20">
-              {error}
-            </div>
-          )}
-
-          <div className="flex flex-col gap-1">
-            <label className="font-label-sm text-label-sm text-primary font-semibold">Email Address</label>
-            <input 
-              type="email" 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-lg bg-surface-white border border-divider-hairline text-primary font-body-md text-body-md placeholder:text-cocoa-sand/60 focus:outline-none focus:border-primary transition-all"
-              placeholder="name@campus.com"
-            />
+        {error && (
+          <div className="mb-4 p-3 bg-error-container text-on-error-container font-body-sm text-body-sm rounded-lg border border-error/20">
+            {error}
           </div>
+        )}
 
-          <div className="flex flex-col gap-1">
-            <label className="font-label-sm text-label-sm text-primary font-semibold">Password</label>
-            <input 
-              type="password" 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-lg bg-surface-white border border-divider-hairline text-primary font-body-md text-body-md placeholder:text-cocoa-sand/60 focus:outline-none focus:border-primary transition-all"
-              placeholder="••••••••"
-            />
-          </div>
-
+        <div className="flex flex-col gap-3">
           <button 
-            type="submit"
-            className="w-full mt-2 py-3 rounded-full bg-primary text-canvas-cream font-label-md text-label-md font-semibold hover:bg-muted-aubergine transition-all active:translate-y-0.5 shadow-sm"
+            type="button"
+            onClick={() => login('student@campus.com', 'student123')}
+            className="w-full py-3.5 px-4 rounded-xl bg-surface-tint border border-divider-hairline text-primary font-label-lg text-label-lg hover:bg-secondary-container transition-colors shadow-sm flex items-center justify-between group"
           >
-            Sign In
+            <div className="flex flex-col items-start">
+              <span>Student Portal</span>
+              <span className="font-body-sm text-cocoa-sand text-xs mt-0.5">student@campus.com</span>
+            </div>
+            <span className="material-symbols-outlined text-cocoa-sand group-hover:text-primary transition-colors">arrow_forward</span>
           </button>
-        </form>
-
-        <div className="mt-space-lg pt-space-md border-t border-divider-hairline">
-          <p className="font-meta-caps text-meta-caps text-cocoa-sand text-center mb-space-sm">
-            Prototype Demo Accounts
-          </p>
-          <div className="flex gap-2">
-            <button 
-              type="button"
-              onClick={() => fillDemo('student')}
-              className="flex-1 py-2 px-3 rounded-lg bg-surface-tint border border-divider-hairline text-primary font-label-sm text-label-sm hover:bg-secondary-container transition-colors"
-            >
-              Fill Student
-            </button>
-            <button 
-              type="button"
-              onClick={() => fillDemo('organizer')}
-              className="flex-1 py-2 px-3 rounded-lg bg-surface-tint border border-divider-hairline text-primary font-label-sm text-label-sm hover:bg-secondary-container transition-colors"
-            >
-              Fill Organizer
-            </button>
-          </div>
+          
+          <button 
+            type="button"
+            onClick={() => login('organizer@campus.com', 'admin123')}
+            className="w-full py-3.5 px-4 rounded-xl bg-surface-tint border border-divider-hairline text-primary font-label-lg text-label-lg hover:bg-secondary-container transition-colors shadow-sm flex items-center justify-between group"
+          >
+            <div className="flex flex-col items-start">
+              <span>Organizer Portal</span>
+              <span className="font-body-sm text-cocoa-sand text-xs mt-0.5">organizer@campus.com</span>
+            </div>
+            <span className="material-symbols-outlined text-cocoa-sand group-hover:text-primary transition-colors">arrow_forward</span>
+          </button>
         </div>
 
         {/* Developer Note */}
